@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body onload="displayFreelancers()">
+    <header>
+        <div class="header-logo">
+            <div class="main-logo">
+                <h3>Free Lancer</h3>
+            </div>
+            <div class="sub-logo">
+                <p>Community</p>
+            </div>
+        </div>
+        <div class="menu">
+            
+            <p class="two-menu" onclick="showMsg()">Find Talent 🔎</p>
+        </div>
+        <div onclick="showLogout()"  class="header-profile">
+            <p><i class="fa-solid fa-user"></i></p>
+            <div class="logoutDropdown">
+                <span class="logoutBtn" onclick="logout()">Logout</span>
+            </div>
+        </div>
+    </header>
+    <br>
+   <div class="post-add-content">
+    <button type="button" class="add-post-button" onclick="addpost()">Add Post</button>
+        <div class="my-posts">
+            <button type="button" onclick="closeform()" id="closeBtn">&times;</button>
+            <form id="post-post">
+                <h2>Add Your Post </h2>
+                Title : 
+                <input type="text" id="post-title" required>
+                skills Required :
+                <input type="text" id="post-skills" required>
+                Project Details :
+                <input type="textarea" id="post-details" required>
+                Money :
+                <input type="text" id="post-money" required>
+                Date of completion :
+                <input type ="date" id="post-date" required>
+                <button type="button" onclick="submitpost()">Add Post</button>
+            </form>
+        </div>
+   </div>
+   <br>
+    <div class="talent">
+        <h2>Freelancers</h2>
+        <br>
+        <hr>
+        <br>
+        <main class="main-content">
+        Loading data of freelancer
+    </main>
+    </div>
+    <footer>
+        <p>&copy;Freelancer Community. All Rights are Reserved 2025</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        function showMsg(){
+            alert("Eplore the talent below in section....😊");
+        }
+    </script>
+</body>
+</html>

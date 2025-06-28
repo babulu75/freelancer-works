@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body onload="displayPosts()">
+    <header>
+            <div class="header-logo">
+                <div class="main-logo">
+                    <h3>Free Lancer</h3>
+                </div>
+                <div class="sub-logo">
+                    <p>Community</p>
+                </div>
+            </div>
+            <div class="menu">
+                <p class="one-menu" onclick="showMsg()">Find Work 🎯</p>
+            </div>
+             <div onclick="showLogout()"  class="header-profile">
+                <p><i class="fa-solid fa-user"></i></p>
+                <div class="logoutDropdown">
+                   <span class="logoutBtn" onclick="logout()">Logout</span>
+                </div>
+            </div>
+        </header>
+        <div class="freelancer-details">
+            <form class="fl-form">
+            Enter Name:
+            <input type="text" id="detail-name" required>
+            Enter Email:
+            <input type="email" id="detail-email" required>
+            Enter Skills:
+            <input type="text" id="detail-skills" placeholder="enter skills seperating with comma" required>
+            <button type="button" onclick="sendDetails()">Submit</button>
+            </form>
+        </div>
+    <main class="main-content">
+        <div class="main-posts"></div>
+    </main>
+    <footer>
+        <p>&copy;Freelancer Community. All Rights are Reserved 2025</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        function showMsg(){
+            alert("Eplore the work below in section....😊");
+        }
+    </script>
+</body>
+</html>

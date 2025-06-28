@@ -1,0 +1,17 @@
+{
+  "name": "freelancer-website",
+  "version": "1.0.0",
+  "description": "A freelancer website",
+  "license": "ISC",
+  "author": "Babulu",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.10"
+  }
+}

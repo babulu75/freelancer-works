@@ -95,9 +95,14 @@ async function login() {
         });
         const data = await response.json();
         if (response.ok) {
+            const token = btoa(email + ":" + Date.now()); // or use any method above
+            localStorage.setItem("userToken", token);
             document.querySelector(".overlay-signup").style.display = "none";
             alert("login successful... 🤩");
             location.href = "employer.html";
+            
+            const person_welcome=`<p>Welcome back , ${data.data}</p>`;
+            document.querySelector(".welcome-profile").innerHTML=person_welcome;
         }
         else {
             alert("Invalid Credentials....😴");
@@ -112,6 +117,8 @@ async function login() {
         })
         const data = await response.json();
         if (response.ok) {
+            const token = btoa(email + ":" + Date.now()); // or use any method above
+            localStorage.setItem("userToken", token);
             document.querySelector(".overlay-signup").style.display = "none";
             alert("login successful...");
             location.href = "freelancer.html";
@@ -131,14 +138,17 @@ async function displayFreelancers() {
         body: JSON.stringify({})
     })
     const data = await response.json();
-    console.log(data);
     if(data){
         document.querySelector(".main-content").innerHTML="";
         data.forEach(element => {
             const item= `<div class='main-freeLancer'>
-            <h2>${element.name}</h2>
-            <p>${element.email}</p>
-            <p>${element.skills}</p>
+            <div class="freelancer-image"></div>
+            <h2>${element.NAME}</h2>
+            <p>${element.EMAIL}</p>
+            <p>${element.SKILLS}</p>
+            <p>${element.EXPERIENCE}</p>
+            <p>${element.AVAILABILITY}</p>
+            <P>${element.HOURLY_RATE}</p>
             <span class="f-profile-check">Profile</span>
             </div>`;
             document.querySelector('.main-content').innerHTML += item;
@@ -153,16 +163,21 @@ async function displayPosts() {
         body: JSON.stringify({})
     })
     const data = await response.json();
-    console.log(data);
     if(data){
         document.querySelector(".main-content").innerHTML="";
+        
         data.forEach(element => {
+            const endDate = element.DATE;
+            const formattedendDate = endDate.slice(0, 10);
+            const postedDate = element.POSTED_DATE;
+            const formattedpostedDate = postedDate.slice(0, 10); 
             const item= `<div class='main-posts'>
-            <h2>${element.title}</h2>
-            <p>${element.description}</p>
-            <h3>${element.skills}</h3>
-            <p>${element.money}$</p>
-            <h3>${element.date}</h3>
+            <h2>${element.TITLE}</h2>
+            <p>${formattedendDate}</p>
+            <p>${element.DESCRIPTION}</p>
+            <h3>${element.SKILLS}</h3>
+            <p>${element.MONEY}$</p>
+            <h3>${formattedpostedDate}</h3>
             </div>`;
             document.querySelector('.main-content').innerHTML += item;
         });
@@ -180,9 +195,9 @@ async function submitpost() {
     const skills = document.getElementById("post-skills").value;
     const money = document.getElementById("post-money").value;
     const date = document.getElementById("post-date").value;
-
+    
     const response = await fetch('/addpost', {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, description, skills, money, date })
     });
@@ -199,15 +214,27 @@ async function submitpost() {
     document.querySelector(".my-posts").style.display="none";
 }
 
-async function sendDetails() {
-    const name = document.getElementById("detail-name").value;
-    const email = document.getElementById("detail-email").value;
-    const skills = document.getElementById("detail-skills").value;
+function updateDetails(){
+    document.querySelector(".freelancer-details").style.display="block";
+    document.querySelector(".update-details").style.display="none";
+}
+
+async function submitFreelancerDetails() {
+    const name = document.getElementById("freelancer-name").value;
+    const email = document.getElementById("freelancer-email").value;
+    const phoneNumber = document.getElementById("freelancer-phone").value;
+    const location = document.getElementById("freelancer-location").value;
+    const skills = document.getElementById("freelancer-skills").value;
+    const experience = document.getElementById("freelancer-experience").value;
+    const portfolio = document.getElementById("freelancer-portfolio").value;
+    const glink = document.getElementById("freelancer-link").value;
+    const availablity = document.getElementById("freelancer-availability").value;
+    const rate = document.getElementById("freelancer-rate").value;
 
     const response = await fetch('/updateDetails', {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, skills })
+        body: JSON.stringify({ name, email,phoneNumber,location,skills,experience,portfolio,glink,availablity,rate })
     });
 
     const data = await response.json();
@@ -217,9 +244,13 @@ async function sendDetails() {
     else {
         alert("Failed to update details. Please try again.");
     }
+    document.querySelector(".update-details").style.display="block";
 }
 
 function logout() {
-    alert("Logged out successfully!");
-    location.href = "index.html";
+    localStorage.removeItem("userToken"); // clear token
+    alert("You have been logged out.");
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 500);
 }

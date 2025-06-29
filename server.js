@@ -33,6 +33,14 @@ app.post('/signup-employer',(req,res)=>{
     if(!name || !email || !password){
         return res.status(400).json({error:"Missing required fields"});
     }
+    db.query("select * from signup_employer where email=?",[email],(err,results)=>{
+        if (err){
+            return res.status(500).json({error:"Error in database query"});
+            }
+        if(results.length>1){
+            return res.status(400).json({error:"user aleardy exists on this email id "})
+        }
+    })
     db.query("insert into signup_employer(name,email,password) values(?,?,?)",[name,email,password],(err)=>{
         if(err){
             res.status(500).json({error:"Database error"});
@@ -78,7 +86,6 @@ app.post('/loginFreelancer',(req,res)=>{
             return res.status(500).json({error:"Database error"});
         }
         const data=results[0];
-        console.log(data.PASSWORD,password);
         if (!data){
              return res.status(404).json({message:'Sign up first...'});
         }
@@ -104,7 +111,7 @@ app.post('/login-employer',(req,res)=>{
         }
         const user=results[0];
         if(user.password===password){
-            res.status(200).json({message:"Successful"});
+            res.status(200).json({message:"Successful",data:results.NAME});
         }
         else{
             res.status(401).json({error:"Invalid password"});
@@ -134,12 +141,12 @@ app.post('/posts',(req,res)=>{
     })
 })
 
-app.post('/updateDetails',(req,res)=>{
-    const {name,email,skills}=req.body;
+app.put('/updateDetails',(req,res)=>{
+    const {name, email,phoneNumber,location,skills,experience,portfolio,glink,availablity,rate}=req.body;
     if(!name || !email || !skills){
         return res.status(400).json({error:"Missing required fields"});
     }
-    db.query("insert into freelancer(NAME,EMAIL,SKILLS) values(?,?,?)",[name,email,skills],(err)=>{
+    db.query("insert into freelancer(NAME,EMAIL,PHONE_NUMBER,LOCATION,SKILLS,EXPERIENCE,PORTFOLIO,GITHUB,AVAILABILITY,HOURLY_RATE) values(?,?,?,?,?,?,?,?,?,?)",[name, email,phoneNumber,location,skills,experience,portfolio,glink,availablity,rate],(err)=>{
         if(err){
             res.status(500).json({error:"Database error"});
         }
@@ -150,7 +157,7 @@ app.post('/updateDetails',(req,res)=>{
     })
 })
 
-app.post('/addpost',(req,res)=>{
+app.put('/addpost',(req,res)=>{
     const {title,description,skills,money,date}=req.body;
     if(!title || !description){
         return res.status(400).json({error:"Missing required fields"});

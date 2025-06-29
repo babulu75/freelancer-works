@@ -27,20 +27,63 @@
                 </div>
             </div>
         </header>
-        <div class="freelancer-details">
-            <form class="fl-form">
-            Enter Name:
-            <input type="text" id="detail-name" required>
-            Enter Email:
-            <input type="email" id="detail-email" required>
-            Enter Skills:
-            <input type="text" id="detail-skills" placeholder="enter skills seperating with comma" required>
-            <button type="button" onclick="sendDetails()">Submit</button>
-            </form>
+        <div class="body-section">
+        <div class="profile-data-updates">
+            <button type="button" onclick="updateDetails()" class="update-details">Update Details</button>
+            <div class="freelancer-details">
+                <form id="post-post">
+                    <!-- Basic Info -->
+                    Full Name:
+                    <input type="text" id="freelancer-name" required>
+
+                    Email:
+                    <input type="email" id="freelancer-email" required>
+
+                    Phone Number:
+                    <input type="tel" id="freelancer-phone" pattern="[0-9]{10}" required>
+
+                    Location:
+                    <input type="text" id="freelancer-location" placeholder="City, Country" required>
+
+                    <!-- Skills -->
+                    Skills:
+                    <input type="text" id="freelancer-skills" placeholder="e.g. HTML, CSS, JS, Node.js" required>
+
+                    Years of Experience:
+                    <input type="number" id="freelancer-experience" min="0" max="50" required>
+
+                    <!-- Portfolio & Work -->
+                    Portfolio URL:
+                    <input type="url" id="freelancer-portfolio" placeholder="https://your-portfolio.com">
+
+                    GitHub/LinkedIn:
+                    <input type="url" id="freelancer-link" placeholder="https://github.com/username">
+
+                    <!-- Availability -->
+                    Availability:
+                    <select id="freelancer-availability">
+                        <option value="full-time">Full-Time</option>
+                        <option value="part-time">Part-Time</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="contract">Contract-Based</option>
+                    </select>
+
+                    <!-- Expected Pay -->
+                    Expected Hourly Rate (INR):
+                    <input type="number" id="freelancer-rate" min="100" placeholder="e.g. 500" required>
+
+                    <button type="button" onclick="submitFreelancerDetails()">Update Details</button>
+                </form>
+            </div>
         </div>
-    <main class="main-content">
-        <div class="main-posts"></div>
-    </main>
+        <br>
+        <h2>Works and Projects</h2>
+        <br>
+        <hr>
+        <main class="main-content">
+            <div class="main-posts"></div>
+        </main>
+    </div>
     <footer>
         <p>&copy;Freelancer Community. All Rights are Reserved 2025</p>
     </footer>
@@ -49,6 +92,16 @@
         function showMsg(){
             alert("Eplore the work below in section....😊");
         }
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("userToken");
+
+            if (!token) {
+                alert("Please login first.");
+                window.location.href = "index.html";
+            }
+        });
+
+        
     </script>
 </body>
 </html>

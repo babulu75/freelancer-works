@@ -29,35 +29,38 @@
         </div>
     </header>
     <br>
-   <div class="post-add-content">
-    <button type="button" class="add-post-button" onclick="addpost()">Add Post</button>
-        <div class="my-posts">
-            <button type="button" onclick="closeform()" id="closeBtn">&times;</button>
-            <form id="post-post">
-                <h2>Add Your Post </h2>
-                Title : 
-                <input type="text" id="post-title" required>
-                skills Required :
-                <input type="text" id="post-skills" required>
-                Project Details :
-                <input type="textarea" id="post-details" required>
-                Money :
-                <input type="text" id="post-money" required>
-                Date of completion :
-                <input type ="date" id="post-date" required>
-                <button type="button" onclick="submitpost()">Add Post</button>
-            </form>
+    <div class="body-section">
+        <div class="welcome-profile"></div>
+        <div class="post-add-content">
+            <button type="button" class="add-post-button" onclick="addpost()">Add Post</button>
+            <div class="my-posts">
+                <button type="button" onclick="closeform()" id="closeBtn">&times;</button>
+                <form id="post-post">
+                    <h2>Add Your Post </h2>
+                    Title : 
+                    <input type="text" id="post-title" required>
+                    skills Required :
+                    <input type="text" id="post-skills" required>
+                    Project Details :
+                    <input type="textarea" id="post-details" required>
+                    Money :
+                    <input type="text" id="post-money" required>
+                    Date of completion :
+                    <input type ="date" id="post-date" required>
+                    <button type="button" onclick="submitpost()">Add Post</button>
+                </form>
+            </div>
         </div>
-   </div>
-   <br>
-    <div class="talent">
-        <h2>Freelancers</h2>
-        <br>
-        <hr>
-        <br>
-        <main class="main-content">
-        Loading data of freelancer
-    </main>
+    <br>
+        <div class="talent">
+            <h2>Freelancers</h2>
+            <br>
+            <hr class="hr">
+            <br>
+            <main class="main-content">
+            Loading data of freelancer
+        </main>
+        </div>
     </div>
     <footer>
         <p>&copy;Freelancer Community. All Rights are Reserved 2025</p>
@@ -67,6 +70,15 @@
         function showMsg(){
             alert("Eplore the talent below in section....😊");
         }
+         document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("userToken");
+
+            if (!token) {
+                alert("Please login first.");
+                window.location.href = "index.html";
+            }
+        });
+
     </script>
 </body>
 </html>

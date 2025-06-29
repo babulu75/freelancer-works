@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet"  type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body onload="displayPosts()">
     <header>
-            <div class="header-logo">
-                <div class="main-logo">
-                    <h3>Free Lancer</h3>
-                </div>
-                <div class="sub-logo">
-                    <p>Community</p>
-                </div>
+        <div class="header-logo">
+            <div class="main-logo">
+                <h3>Free Lancer</h3>
             </div>
-            <div class="menu">
-                <p class="one-menu" onclick="showMsg()">Find Work 🎯</p>
+            <div class="sub-logo">
+                <p>Community</p>
             </div>
-             <div onclick="showLogout()"  class="header-profile">
-                <p><i class="fa-solid fa-user"></i></p>
-                <div class="logoutDropdown">
-                   <span class="logoutBtn" onclick="logout()">Logout</span>
-                </div>
+        </div>
+        <div class="menu">
+            <p class="one-menu" onclick="showMsg()">Find Work 🎯</p>
+        </div>
+        <div onclick="showLogout()" class="header-profile">
+            <p><i class="fa-solid fa-user"></i></p>
+            <div class="logoutDropdown">
+                <span class="logoutBtn" onclick="logout()">Logout</span>
             </div>
-        </header>
-        <div class="body-section">
+        </div>
+    </header>
+    <div class="all-main-section">
+        <h1>👋 Welcome back, Mr. Karthik</h1>
+        <p>Here’s a quick look at your working activity.</p>
+        <div class="post-job">
+                <button onclick="updateDetails()">Update Details</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-section">
         <div class="profile-data-updates">
-            <button type="button" onclick="updateDetails()" class="update-details">Update Details</button>
             <div class="freelancer-details">
                 <form id="post-post">
                     <!-- Basic Info -->
@@ -77,19 +89,22 @@
             </div>
         </div>
         <br>
-        <h2>Works and Projects</h2>
+        <div class="talent">
+            <h2>Works and Projects</h2>
         <br>
         <hr>
         <main class="main-content">
             <div class="main-posts"></div>
         </main>
+        </div>
+        
     </div>
     <footer>
         <p>&copy;Freelancer Community. All Rights are Reserved 2025</p>
     </footer>
     <script src="script.js"></script>
     <script>
-        function showMsg(){
+        function showMsg() {
             alert("Eplore the work below in section....😊");
         }
         document.addEventListener("DOMContentLoaded", () => {
@@ -100,8 +115,7 @@
                 window.location.href = "index.html";
             }
         });
-
-        
     </script>
 </body>
+
 </html>

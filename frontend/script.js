@@ -18,18 +18,19 @@ function showLogout() {
     document.querySelector(".logoutDropdown").style.display = "block";
 }
 
-function closeform(){
-    document.querySelector(".my-posts").style.display="none";
-    document.querySelector(".add-post-button").style.display="block";
+function closeform() {
+    document.querySelector(".my-posts").style.display = "none";
 }
 
-function validatePassword(password){
+function validatePassword(password) {
     var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*");
     if (strongRegex.test(password)) {
         return true;
     }
-    return false;   
+    return false;
 }
+
+let email_storage = {};
 
 async function signup() {
     const name = document.getElementById("signup-name").value;
@@ -76,7 +77,7 @@ async function signup() {
             }
         }
     }
-    else{
+    else {
         alert("password should contain at least one uppercase, one lowercase, one digit and one special character");
     }
 
@@ -86,7 +87,6 @@ async function login() {
     const email = document.getElementById("login-email").value;
     const password = document.getElementById("login-password").value;
     const option = document.getElementById("login-option").value;
-
     if (option === "employer") {
         const response = await fetch('/login-employer', {
             method: "POST",
@@ -95,28 +95,31 @@ async function login() {
         });
         const data = await response.json();
         if (response.ok) {
+            localStorage.setItem("loggedInEmail", email);
+
             const token = btoa(email + ":" + Date.now()); // or use any method above
             localStorage.setItem("userToken", token);
             document.querySelector(".overlay-signup").style.display = "none";
             alert("login successful... 🤩");
             location.href = "employer.html";
-            
-            const person_welcome=`<p>Welcome back , ${data.data}</p>`;
-            document.querySelector(".welcome-profile").innerHTML=person_welcome;
+
+            const person_welcome = `<p>Welcome back , ${data.data}</p>`;
+            document.querySelector(".welcome-profile").innerHTML = person_welcome;
         }
         else {
             alert("Invalid Credentials....😴");
         }
         return;
     }
-    else{
-        const response = await fetch('/loginFreelancer',{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({email,password})
+    else {
+        const response = await fetch('/loginFreelancer', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
         })
         const data = await response.json();
         if (response.ok) {
+            email_storage[email] = email;
             const token = btoa(email + ":" + Date.now()); // or use any method above
             localStorage.setItem("userToken", token);
             document.querySelector(".overlay-signup").style.display = "none";
@@ -125,23 +128,23 @@ async function login() {
         }
         else {
             alert("Invalid Credentials....");
-            }
+        }
     }
-    
+
 }
 
 
 async function displayFreelancers() {
-    const response =await fetch('/freelancers', {
+    const response = await fetch('/freelancers', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({})
     })
     const data = await response.json();
-    if(data){
-        document.querySelector(".main-content").innerHTML="";
+    if (data) {
+        document.querySelector(".main-content").innerHTML = "";
         data.forEach(element => {
-            const item= `<div class='main-freeLancer'>
+            const item = `<div class='main-freeLancer'>
             <div class="freelancer-image"></div>
             <h2>${element.NAME}</h2>
             <p>${element.EMAIL}</p>
@@ -157,36 +160,47 @@ async function displayFreelancers() {
 }
 
 async function displayPosts() {
-    const response =await fetch('/posts', {
+    const response = await fetch('/posts', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({})
     })
     const data = await response.json();
-    if(data){
-        document.querySelector(".main-content").innerHTML="";
-        
+    if (data) {
+        document.querySelector(".main-content").innerHTML = "";
+
         data.forEach(element => {
             const endDate = element.DATE;
             const formattedendDate = endDate.slice(0, 10);
             const postedDate = element.POSTED_DATE;
-            const formattedpostedDate = postedDate.slice(0, 10); 
-            const item= `<div class='main-posts'>
-            <h2>${element.TITLE}</h2>
-            <p>${formattedendDate}</p>
-            <p>${element.DESCRIPTION}</p>
-            <h3>${element.SKILLS}</h3>
-            <p>${element.MONEY}$</p>
-            <h3>${formattedpostedDate}</h3>
-            </div>`;
+            const formattedpostedDate = postedDate.slice(0, 10);
+            const item = `<div class='main-posts'>
+                            <img src="main-img.jpg" alt="Project Image" class="post-image" />
+                            <h2>${element.TITLE}</h2>
+                            <p>Deadline: ${formattedendDate}</p>
+                            <p>${element.DESCRIPTION}</p>
+                            <h3>Skills: ${element.SKILLS}</h3>
+                            <p>Budget: ${element.MONEY} ₹</p>
+                            <h3>Posted on: ${formattedpostedDate}</h3>
+                            
+                            <button 
+                                class="apply-btn" 
+                                onclick="applyToJob()"
+                            >
+                                Apply Now
+                            </button>
+                        </div>`;
             document.querySelector('.main-content').innerHTML += item;
         });
     }
 }
 
-function addpost(){
-    document.querySelector(".my-posts").style.display="block";
-    document.querySelector(".add-post-button").style.display="none";
+function applyToJob(){
+    alert("this feature will be enabled soon");
+}
+
+function addpost() {
+    document.querySelector(".my-posts").style.display = "block";
 }
 
 async function submitpost() {
@@ -195,7 +209,7 @@ async function submitpost() {
     const skills = document.getElementById("post-skills").value;
     const money = document.getElementById("post-money").value;
     const date = document.getElementById("post-date").value;
-    
+
     const response = await fetch('/addpost', {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -210,13 +224,12 @@ async function submitpost() {
     else {
         alert("Failed to add post. Please try again.");
     }
-    document.querySelector(".add-post-button").style.display="block";
-    document.querySelector(".my-posts").style.display="none";
+    document.querySelector(".my-posts").style.display = "none";
 }
 
-function updateDetails(){
-    document.querySelector(".freelancer-details").style.display="block";
-    document.querySelector(".update-details").style.display="none";
+function updateDetails() {
+    document.querySelector(".freelancer-details").style.display = "block";
+    document.querySelector(".update-details").style.display = "none";
 }
 
 async function submitFreelancerDetails() {
@@ -234,7 +247,7 @@ async function submitFreelancerDetails() {
     const response = await fetch('/updateDetails', {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email,phoneNumber,location,skills,experience,portfolio,glink,availablity,rate })
+        body: JSON.stringify({ name, email, phoneNumber, location, skills, experience, portfolio, glink, availablity, rate })
     });
 
     const data = await response.json();
@@ -244,7 +257,7 @@ async function submitFreelancerDetails() {
     else {
         alert("Failed to update details. Please try again.");
     }
-    document.querySelector(".update-details").style.display="block";
+    document.querySelector(".update-details").style.display = "block";
 }
 
 function logout() {
@@ -253,4 +266,6 @@ function logout() {
     setTimeout(() => {
         window.location.href = "index.html";
     }, 500);
+    email_storage = {}
 }
+

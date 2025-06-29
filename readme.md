@@ -1,13 +1,60 @@
-Freelancers worker
+# 💼 Freelancer Job Portal
 
-login page (html css js)
-login and signup pages with respective freelancerm and employer subjects
+A full-stack freelancer hiring platform where **employers** can post job listings and **freelancers** can apply to relevant projects. Built using **Node.js, Express, MySQL, HTML, CSS, and JavaScript**, the system enables dynamic job posting, user role management, and application tracking.
 
-after login , redirect to dashboard page
-if freelancer login it will show the details about freelancer and the availble jobs 
-if employer logins it wiil show the add  button for adding jobs 
-and show available users
+---
+
+## 📌 Features
+
+### 🧑‍💼 For Employers:
+- Secure login and registration
+- Post new jobs with:
+  - Project Title
+  - Description
+  - Required Skills
+  - Budget (in ₹)
+  - Deadline Date
+- View and manage posted jobs
+- View applications from freelancers (Planned)
+
+### 🧑‍💻 For Freelancers:
+- Secure login/signup
+- Browse active job posts
+- Apply to jobs with one click
+- Duplicate application prevention (with localStorage or DB check)
+- Clean UI for better reading experience
+
+---
+
+## 🖥️ Tech Stack
+
+| Layer         | Technology                        |
+|---------------|-----------------------------------|
+| Frontend      | HTML5, CSS3, JavaScript           |
+| Backend       | Node.js, Express.js               |
+| Database      | MySQL (Relational Database)       |
+| Deployment    | Render             |
+
+---
+
+## 📂 Folder Structure
+
+Freelancer Webiste
+|
+|----frontend
+|      |-------index.html
+|      |-------employer.html
+|      |-------freelancer.html
+|      |-------style.css
+|      |-------main-img.jpg
+|      |-------script.js
+|
+|----node modules
+|----server.js
+|----readme.md
+|----package.json
 
 
-like these flow continues 
-db schmea provided in databse.sql
+
+
+
